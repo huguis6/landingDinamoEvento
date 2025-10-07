@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/c4cbacb062.js" crossorigin="anonymous"></script>
+  <title>Dinamo - Jornada Técnica</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/good-times-2" rel="stylesheet">
+  <style>
+    /* Event section styling inspired by the provided PDF images */
+    .jornada-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:stretch; max-width:1100px; margin:2rem auto;}
+    .jornada-left{position:relative; border-radius:12px; overflow:hidden; min-height:360px; box-shadow:0 6px 24px rgba(0,0,0,0.06);}
+    .jornada-left .photo{background-size:cover; background-position:center; width:100%; height:100%;}
+    .jornada-left .logo-band{position:absolute; left:0; bottom:0; width:100%; background:#000; color:#fff; padding:22px 20px; display:flex; align-items:center; gap:18px;}
+    .jornada-left .logo-band h3{margin:0; font-size:1.6rem; font-family:'Good Times Rg', sans-serif; color:#C9C935}
+    .jornada-left .decor-squares{position:absolute; left:12px; top:12px; display:grid; grid-template-columns:repeat(2,24px); gap:6px;}
+    .jornada-left .decor-squares .sq{width:24px; height:24px; border-radius:4px;}
+    .sq.green{background:#C9C935}
+    .sq.teal{background:#5AB359}
+    .sq.blue{background:#2b9bd6}
+    .sq.dark{background:#0b6b45}
+
+    .jornada-right{background:#fff; border-radius:12px; padding:18px; box-shadow:0 6px 24px rgba(0,0,0,0.04);}
+    .jornada-card{display:flex; gap:12px; align-items:flex-start; margin-bottom:14px;}
+    .jornada-card .icon{flex:0 0 56px; height:56px; background:#C9C935; color:#fff; display:flex; align-items:center; justify-content:center; border-radius:8px; font-size:1.2rem}
+    .jornada-card h4{margin:0 0 6px 0; color:#0b6b45}
+    .jornada-card p{margin:0; color:#444}
+
+    .objectives{display:flex; gap:12px; margin-top:12px; flex-wrap:wrap}
+    .objective{flex:1 1 33%; background:linear-gradient(180deg,#f7f9f8,#ffffff); border-radius:8px; padding:12px; text-align:left}
+    .objective h5{margin:6px 0; color:#0b6b45}
+
+    @media (max-width:900px){
+      .jornada-grid{grid-template-columns:1fr; padding:0 12px}
+      .objective{flex:1 1 100%}
+    }
+
+    /* Section layout for landing: make each block large and scrollable */
+    .section-block{padding:48px 16px;}
+    .section-hero{position:relative; height:420px; display:flex; align-items:center; justify-content:center; color:#fff;}
+    .section-hero .bg{position:absolute; inset:0; background-size:cover; background-position:center; filter:brightness(0.55);} 
+    .section-hero .hero-inner{position:relative; z-index:2; text-align:center; max-width:920px; padding:36px;}
+    .section-hero h2{font-size:36px; margin:0 0 8px;}
+    .section-hero p{font-size:18px; margin:0}
+
+    .section-split{display:flex; gap:24px; align-items:stretch; max-width:1100px; margin:0 auto;}
+    .section-split .leftImg{flex:1 1 45%; background-size:cover; background-position:center; min-height:320px; border-radius:8px;}
+    .section-split .card{flex:1 1 55%; background:#fff; border-radius:8px; padding:20px 22px; box-shadow:0 6px 18px rgba(10,10,10,0.06);}
+
+    .objectives{display:flex; gap:22px; max-width:1000px; margin:0 auto;}
+    .objective{flex:1 1 0; background:#fff; padding:18px; border-radius:8px; box-shadow:0 6px 18px rgba(10,10,10,0.05);}
+    .objective h5{margin-top:0; color:#0b6b45}
+
+    .logos-grid{display:flex; gap:18px; flex-wrap:wrap; justify-content:center; align-items:center; max-width:1100px; margin:0 auto;}
+    .logos-grid img{height:56px; opacity:0.95; object-fit:contain; background:#fff; padding:6px; border-radius:6px}
+
+    .marcaSwiper .swiper-slide img{height:70px; object-fit:contain}
+
+    @media(max-width:900px){
+      .section-split{flex-direction:column}
+      .section-hero{height:360px}
+      .section-hero h2{font-size:28px}
+      .objectives{flex-direction:column}
+    }
+    /* Feature & animation helpers */
+    .feature-cards .feature{position:relative; overflow:hidden}
+    .feature .badge{position:absolute; left:14px; top:14px; background:#0b6b45; color:#fff; padding:6px 10px; border-radius:8px; font-weight:700; font-size:0.75rem}
+    .feature img{transition:transform .45s cubic-bezier(.2,.9,.3,1)}
+    .feature:hover img{transform:translateY(-6px) scale(1.03)}
+
+  .animate-on-scroll{opacity:0; transform:translateY(14px); transition:opacity .65s ease, transform .75s cubic-bezier(.2,.9,.3,1); will-change:opacity,transform}
+  .animate-on-scroll.in-view{opacity:1; transform:none}
+  /* direction helpers */
+  .animate-left{transform:translateX(-18px)}
+  .animate-right{transform:translateX(18px)}
+
+    /* Testimonials swiper */
+    .testimonials{max-width:980px; margin:34px auto; padding:22px}
+    .testimonial-card{background:#fff; padding:18px; border-radius:12px; box-shadow:0 8px 22px rgba(0,0,0,0.06); text-align:left}
+    .testimonial-card p{margin:0 0 8px 0}
+    .testimonial-author{font-weight:700; color:#0b6b45}
+    /* Agenda & formato visuals */
+    .timeline{display:flex; gap:10px; overflow:auto; padding:10px 6px; align-items:center}
+    .time-chip{flex:0 0 auto; background:#fff; border:1px solid #E6F3EC; color:#0b6b45; padding:8px 12px; border-radius:999px; font-weight:600; box-shadow:0 6px 18px rgba(11,107,69,0.04); cursor:pointer}
+    .time-chip.active{background:#0b6b45; color:#fff; box-shadow:0 10px 30px rgba(11,107,69,0.12)}
+    .module-list{display:flex; flex-direction:column; gap:12px; margin-top:16px}
+    .module-card{background:#fff; border-radius:12px; padding:14px; box-shadow:0 8px 22px rgba(0,0,0,0.04); transition:transform .25s ease, box-shadow .25s ease}
+    .module-card:hover{transform:translateY(-6px); box-shadow:0 14px 34px rgba(0,0,0,0.08)}
+    .module-head{display:flex; gap:12px; align-items:center; justify-content:space-between}
+    .module-title{display:flex; gap:12px; align-items:center}
+    .module-details{display:none; margin-top:12px; color:#333}
+    .module-card.open .module-details{display:block}
+    .chip-cta{display:inline-block; padding:6px 12px; border-radius:999px; background:#5AB359; color:#fff; font-weight:700; cursor:pointer}
+
+    @media(max-width:900px){
+      .timeline{gap:8px}
+      .time-chip{padding:8px 10px}
+    }
+    /* Callout / publico objetivo */
+    .callout{max-width:1100px; margin:36px auto; display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:stretch}
+    .callout-left{background:#0b6b45; color:#fff; padding:28px; border-radius:12px; display:flex; flex-direction:column; justify-content:center; gap:12px}
+    .callout-left h3{color:#C9C935; font-size:2rem; margin:0}
+    .callout-left p{margin:0; color:#e6f8ef}
+    .callout-right{background:linear-gradient(90deg,#fff,#fbfcfb); padding:22px; border-radius:12px; box-shadow:0 8px 28px rgba(0,0,0,0.03)}
+    .callout-list{display:flex; flex-direction:column; gap:14px}
+    .callout-item{display:flex; gap:12px; align-items:flex-start}
+    .callout-number{width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:#fff; color:#0b6b45; font-weight:700; box-shadow:0 4px 12px rgba(11,107,69,0.06)}
+    @media(max-width:900px){.callout{grid-template-columns:1fr; padding:0 12px}}
+  </style>
+</head>
+<body style="background: #f8f9f9; font-family: 'Poppins', sans-serif;">
+
+  <main>
+    <header style="text-align:center; padding:2.5rem 1rem 0 1rem;">
+      <h1 class="titleDinamo" style="font-family:'Good Times Rg', sans-serif; font-size:2.25rem; color:#0b6b45; margin-bottom:0.25rem;">DINAMO</h1>
+      <p style="color:#333; margin-top:0;">Todo para tu hogar — materiales eléctricos, iluminación y soluciones sencillas.</p>
+    </header>
+
+    <!-- Expanded event landing: hero, agenda, formato, objetivos, alianzas -->
+    <section class="section-hero" style="margin-bottom:28px;">
+      <div class="bg" style="background-image:url('./assets/fondo2.jpg')"></div>
+      <div class="hero-inner">
+        <h2>Jornada Técnica — San Martín de los Andes</h2>
+        <p>8 de noviembre de 2025 · 10:00 - 16:00 hs · Entrada libre y gratuita con inscripción previa</p>
+        <div style="margin-top:18px;"><button id="openInscriptionBtn" class="btn btn-lg btn-success">INSCRIPCIÓN</button></div>
+      </div>
+    </section>
+    <!-- Callout: Entrada libre y gratuita con inscripción previa + público objetivo (moved up) -->
+    <section class="callout animate-on-scroll animate-up" data-animate-delay="60" aria-label="Público objetivo">
+      <div class="callout-left">
+        <h3>Público objetivo</h3>
+        <p>Entrada <strong>libre y gratuita</strong> con inscripción previa</p>
+        <p style="font-style:italic;">Estimamos la asistencia de <strong>100 personas</strong></p>
+      </div>
+      <div class="callout-right">
+        <div class="callout-list">
+          <div class="callout-item"><div class="callout-number">1</div><div>Profesionales y afines del rubro</div></div>
+          <div class="callout-item"><div class="callout-number">2</div><div>Instaladores, técnicos, arquitectos</div></div>
+          <div class="callout-item"><div class="callout-number">3</div><div>Empresas, industrias y constructoras</div></div>
+          <div class="callout-item"><div class="callout-number">4</div><div>Referentes institucionales</div></div>
+          <div class="callout-item"><div class="callout-number">5</div><div>Estudiantes y profesionales del sector</div></div>
+          <div class="callout-item"><div class="callout-number">6</div><div>Público en general, abierto a la comunidad</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block animate-on-scroll animate-up" data-animate-delay="140">
+      <h3 style="text-align:center; color:#0b6b45">Objetivos del evento</h3>
+      <div class="objectives" style="margin-top:24px;">
+        <div class="objective animate-on-scroll" data-animate-delay="160">
+          <h5>Conectar con profesionales</h5>
+          <p>Instaladores, técnicos, arquitectos, constructores y profesionales del rubro.</p>
+        </div>
+        <div class="objective animate-on-scroll" data-animate-delay="200">
+          <h5>Capacitar e informar</h5>
+          <p>Sobre productos, usos, tecnologías y diferenciadores.</p>
+        </div>
+        <div class="objective animate-on-scroll" data-animate-delay="240">
+          <h5>Generar sinergias</h5>
+          <p>Fomentar la confianza a través del contacto directo con las marcas.</p>
+        </div>
+      </div>
+    </section>
+
+  <section class="section-block animate-on-scroll animate-right" data-animate-delay="80">
+      <div class="section-split">
+        <div class="leftImg" style="background-image:url('./assets/seminario.jpg')"></div>
+        <div class="card">
+          <h3 style="color:#0b6b45">Agenda</h3>
+          <p><strong>Fecha:</strong> sábado 8 de noviembre 2025</p>
+          <div style="display:flex; gap:12px; margin-top:8px; flex-wrap:wrap">
+            <div class="animate-on-scroll animate-up" data-animate-delay="120" style="background:#fff; padding:12px 14px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.04); min-width:160px">
+              <strong>10:00</strong>
+              <div style="color:#444; font-size:0.95rem">Apertura y presentación</div>
+            </div>
+            <div class="animate-on-scroll animate-up" data-animate-delay="180" style="background:#fff; padding:12px 14px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.04); min-width:160px">
+              <strong>11:00</strong>
+              <div style="color:#444; font-size:0.95rem">Charlas técnicas</div>
+            </div>
+            <div class="animate-on-scroll animate-up" data-animate-delay="240" style="background:#fff; padding:12px 14px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.04); min-width:160px">
+              <strong>13:00</strong>
+              <div style="color:#444; font-size:0.95rem">Exhibiciones y almuerzo</div>
+            </div>
+            <div class="animate-on-scroll animate-up" data-animate-delay="300" style="background:#fff; padding:12px 14px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.04); min-width:160px">
+              <strong>15:00</strong>
+              <div style="color:#444; font-size:0.95rem">Cierre y preguntas</div>
+            </div>
+          </div>
+
+          <div style="margin-top:18px; display:flex; gap:10px; align-items:center;">
+            <button class="btn btn-success" id="cta-inscribe-small">Inscribirme</button>
+            <a class="btn btn-outline-success" href="https://wa.me/541124538131" target="_blank">Consultá por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block" style="background:linear-gradient(90deg,#fff,#f7faf7);">
+      <div class="section-split">
+        <div class="card animate-on-scroll animate-left" data-animate-delay="120">
+          <h3 style="color:#0b6b45">Formato</h3>
+          <p>Un día práctico y condensado: charlas técnicas, demostraciones en vivo y stands de marcas para consultas puntuales.</p>
+
+          <div style="display:flex; gap:12px; margin-top:12px; flex-wrap:wrap">
+            <div class="animate-on-scroll animate-up" data-animate-delay="160" style="background:linear-gradient(180deg,#fff,#f7fff7); padding:12px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.04); min-width:160px">
+              <strong>Desayuno</strong>
+              <div style="font-size:0.95rem; color:#444">Bienvenida y acreditación</div>
+            </div>
+            <div class="animate-on-scroll animate-up" data-animate-delay="200" style="background:linear-gradient(180deg,#fff,#f7fff7); padding:12px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.04); min-width:160px">
+              <strong>Charlas</strong>
+              <div style="font-size:0.95rem; color:#444">Módulos técnicos con enfoque práctico</div>
+            </div>
+            <div class="animate-on-scroll animate-up" data-animate-delay="240" style="background:linear-gradient(180deg,#fff,#f7fff7); padding:12px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.04); min-width:160px">
+              <strong>Stands</strong>
+              <div style="font-size:0.95rem; color:#444">Encuentro directo con marcas</div>
+            </div>
+            <div class="animate-on-scroll animate-up" data-animate-delay="280" style="background:linear-gradient(180deg,#fff,#f7fff7); padding:12px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.04); min-width:160px">
+              <strong>Networking</strong>
+              <div style="font-size:0.95rem; color:#444">Tiempo para intercambio profesional</div>
+            </div>
+          </div>
+        </div>
+        <div class="leftImg animate-on-scroll animate-right" data-animate-delay="220" style="background-image:url('./assets/stands.jpg')"></div>
+      </div>
+    </section>
+
+    <!-- Feature cards (benefits) -->
+    <section class="section-block" style="padding-top:18px; padding-bottom:28px;">
+      <div class="feature-cards" style="max-width:1100px; margin:0 auto; display:flex; gap:18px;">
+        <div class="feature animate-on-scroll animate-up" data-animate-delay="0" style="flex:1; text-align:center; padding:18px; border-radius:12px; background:linear-gradient(180deg,#fff,#f7fff7); box-shadow:0 8px 28px rgba(11,107,69,0.06);">
+          <div class="badge">GRATIS</div>
+          <img src="assets/lightbulb.png" alt="Idea" style="height:64px; margin-bottom:12px;">
+          <h4 style="margin:6px 0; color:#0b6b45">Capacitaciones prácticas</h4>
+          <p style="color:#345;">Charlas técnicas con foco en aplicaciones reales y casos prácticos.</p>
+        </div>
+  <div class="feature animate-on-scroll animate-up" data-animate-delay="120" style="flex:1; text-align:center; padding:18px; border-radius:12px; background:linear-gradient(180deg,#fff,#f7fff7); box-shadow:0 8px 28px rgba(90,179,89,0.06);">
+          <div class="badge">CUPOS LIMITADOS</div>
+          <img src="assets/stopwatch.png" alt="Tiempo" style="height:64px; margin-bottom:12px;">
+          <h4 style="margin:6px 0; color:#0b6b45">Agenda comprimida</h4>
+          <p style="color:#345;">Un día intensivo pensado para optimizar tu tiempo con contenido valioso.</p>
+        </div>
+  <div class="feature animate-on-scroll animate-up" data-animate-delay="240" style="flex:1; text-align:center; padding:18px; border-radius:12px; background:linear-gradient(180deg,#fff,#f7fff7); box-shadow:0 8px 28px rgba(43,155,214,0.06);">
+          <div class="badge">NETWORK</div>
+          <img src="assets/guarantee-certificate.png" alt="Calidad" style="height:64px; margin-bottom:12px;">
+          <h4 style="margin:6px 0; color:#0b6b45">Contacto directo</h4>
+          <p style="color:#345;">Conocé a representantes de marcas, hacé preguntas y llevate soluciones.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Objetivos will appear after the brands carousel to prioritize alliances and social proof -->
+
+
+
+    <!-- Testimonials -->
+   
+
+    <!-- Brands carousel (franja al final de la landing) -->
+    <section aria-label="Marcas" style="padding: 1.5rem 0; background:transparent;">
+      <h3 style="text-align:center; color:#0b6b45">Nuestras alianzas</h3>
+
+      <div class="container" style="max-width:1100px;">
+        <div class="swiper marcaSwiper" style="width: 100%; height: 90px;">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="assets/Chint_Logo.png" alt="Chint"></div>
+            <div class="swiper-slide"><img src="./assets/Screenshot 2025-08-20 at 16-46-49 .png" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/sistelectric.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/macroled.png" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/genrod.png" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/jeluz.webp" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/argenplas.png" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/microControl.webp" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/trefilcon.webp" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/daisa.png" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/cambre.png" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/jadever.png" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/lct.png" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/zoloda.png" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/scame.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/richi.png" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/trivialtech_logo-2.png" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/DCK TOOLS_idcqqr7laX_1.png" alt=""></div>
+            <div class="swiper-slide"><img src="./assets/unv-logo-VI-blue-011-300x153.png" alt=""></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+      <div class="container">
+        <p>&copy; 2025 <span class="titleDinamo">Dinamo</span></p>
+        <div class="footer-social" style="display:flex; gap:1rem; justify-content:center;">
+              <a href="https://ar.linkedin.com/company/dinamo-materiales-el%C3%A9ctricos" target="_blank" aria-label="LinkedIn" rel="noopener noreferrer">
+                <i class="fa-brands fa-linkedin"></i>
+              </a>
+              <a href="https://www.instagram.com/dinamo_materiales_electricos/?hl=es-la" target="_blank" aria-label="Instagram" rel="noopener noreferrer">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a href="https://www.youtube.com/@dinamomaterialeselectricos" target="_blank" aria-label="YouTube" rel="noopener noreferrer">
+                <i class="fa-brands fa-youtube"></i>
+              </a>
+              <a href="https://www.facebook.com/dinamo.materiales/" target="_blank" aria-label="Facebook" rel="noopener noreferrer">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+        </div>
+        <p>All rights reserved</p>
+      </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>   
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+  const marcaSwiper = new Swiper('.marcaSwiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 0,
+    loop: true,
+    loopedSlides: 10, 
+    speed: 6000,
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: false,
+      reverseDirection: false
+    },
+    allowTouchMove: true
+  });
+</script>
+
+<script>
+  // Testimonials Swiper
+  const testimonialsSwiper = new Swiper('.myTestimonials', {
+    slidesPerView: 1,
+    spaceBetween: 18,
+    loop: true,
+    autoplay: { delay: 4500, disableOnInteraction: false },
+    breakpoints: { 700: { slidesPerView: 2 } }
+  });
+
+  // IntersectionObserver for animations
+  (function(){
+    const items = document.querySelectorAll('.animate-on-scroll');
+    if(!items.length) return;
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const el = e.target;
+          const delay = parseInt(el.dataset.animateDelay || el.getAttribute('data-animate-delay') || 0, 10) || 0;
+          setTimeout(()=> el.classList.add('in-view'), delay);
+          obs.unobserve(el);
+        }
+      });
+    },{ threshold: 0.12 });
+    items.forEach(i=>obs.observe(i));
+  })();
+</script>
+
+<!-- Registration modal -->
+<div class="modal fade" id="inscriptionModal" tabindex="-1" aria-labelledby="inscriptionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="inscriptionModalLabel">Inscripción - Jornada Técnica</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="inscriptionForm">
+          <div class="mb-3">
+            <label for="insName" class="form-label">Nombre completo</label>
+            <input type="text" class="form-control" id="insName" required>
+          </div>
+          <div class="mb-3">
+            <label for="insEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="insEmail" required>
+          </div>
+          <div class="mb-3">
+            <label for="insPhone" class="form-label">Teléfono</label>
+            <input type="tel" class="form-control" id="insPhone" required>
+          </div>
+          <div class="mb-3">
+            <label for="insCompany" class="form-label">Empresa / Organización (opcional)</label>
+            <input type="text" class="form-control" id="insCompany">
+          </div>
+          <div class="form-text mb-2">La entrada es libre y gratuita. Al inscribirte recibirá información por email.</div>
+        </form>
+        <div id="insAlert" class="alert alert-success d-none" role="alert">Inscripción registrada. Te enviaremos más info por email.</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button id="submitInscription" type="button" class="btn btn-success">Enviar inscripción</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script>
+      (function(){
+        const openBtn = document.getElementById('openInscriptionBtn');
+        const inscriptionModalEl = document.getElementById('inscriptionModal');
+        const modal = new bootstrap.Modal(inscriptionModalEl);
+        const submitBtn = document.getElementById('submitInscription');
+        const form = document.getElementById('inscriptionForm');
+        const alertDiv = document.getElementById('insAlert');
+
+        // --- CONFIG: pegá aquí la URL de acción de tu Google Form y los entry IDs ---
+        // Ejemplo action: https://docs.google.com/forms/d/e/FORM_ID/formResponse
+        const GOOGLE_FORM_ACTION = ""; // <-- Pegar la URL 'formResponse' de Google Forms aquí
+        // Ejemplo fields: { name: 'entry.123456789', email: 'entry.987654321', phone: 'entry.55555', company: 'entry.44444' }
+        const GOOGLE_FORM_FIELDS = {
+          name: '',
+          email: '',
+          phone: '',
+          company: ''
+        };
+
+        openBtn.addEventListener('click', ()=> modal.show());
+
+        submitBtn.addEventListener('click', ()=>{
+          // simple validation
+          const name = document.getElementById('insName').value.trim();
+          const email = document.getElementById('insEmail').value.trim();
+          const phone = document.getElementById('insPhone').value.trim();
+          const company = document.getElementById('insCompany').value.trim();
+          if(!name || !email || !phone){
+            alert('Por favor completá nombre, email y teléfono.');
+            return;
+          }
+
+          const entry = {name, email, phone, company, date: new Date().toISOString()};
+          // save to localStorage list
+          try{
+            const list = JSON.parse(localStorage.getItem('inscripciones')||'[]');
+            list.push(entry);
+            localStorage.setItem('inscripciones', JSON.stringify(list));
+          }catch(e){
+            console.error('localStorage error', e);
+          }
+
+          // If Google Forms action is configured, POST to it (no-cors)
+          if(GOOGLE_FORM_ACTION && GOOGLE_FORM_FIELDS.name){
+            try{
+              const fd = new FormData();
+              fd.append(GOOGLE_FORM_FIELDS.name, name);
+              fd.append(GOOGLE_FORM_FIELDS.email, email);
+              fd.append(GOOGLE_FORM_FIELDS.phone, phone);
+              fd.append(GOOGLE_FORM_FIELDS.company, company);
+              // mode: 'no-cors' prevents CORS errors but also gives opaque response
+              fetch(GOOGLE_FORM_ACTION, { method: 'POST', mode: 'no-cors', body: fd });
+            }catch(e){ console.warn('Google Forms submit failed', e); }
+          }else{
+            // fallback: open mail client as lightweight notification (mailto)
+            const subject = encodeURIComponent('Inscripción Jornada Técnica - Dinamo');
+            const bodyLines = [
+              `Nombre: ${name}`,
+              `Email: ${email}`,
+              `Teléfono: ${phone}`,
+              `Empresa: ${company}`,
+              `Evento: Jornada Técnica - San Martín de los Andes (8 Nov 2025)`
+            ];
+            const body = encodeURIComponent(bodyLines.join('\n'));
+            window.location.href = `mailto:info@dinamomateriales.com.ar?subject=${subject}&body=${body}`;
+          }
+
+          // show success state inside modal then close after short delay
+          alertDiv.classList.remove('d-none');
+          setTimeout(()=>{ alertDiv.classList.add('d-none'); modal.hide(); form.reset(); }, 1600);
+        });
+      })();
+    </script>
+
+        <script>
+          // Small helper: bind Inscribirme button to modal
+          (function(){
+            const smallCta = document.getElementById('cta-inscribe-small');
+            const openBtn = document.getElementById('openInscriptionBtn');
+            if(smallCta && openBtn) smallCta.addEventListener('click', ()=> openBtn.click());
+          })();
+        </script>
+
+</body>
+</html>
