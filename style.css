@@ -774,7 +774,9 @@ height: 70px !important;
     }
     
 }
-
+body{
+  overflow-x: hidden;
+}
 
 
 
