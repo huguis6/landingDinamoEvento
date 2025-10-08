@@ -214,6 +214,10 @@
     .module-card.open .module-details{display:block}
     .chip-cta{display:inline-block; padding:6px 12px; border-radius:999px; background:#5AB359; color:#fff; font-weight:700; cursor:pointer}
 
+    .objective h5{
+      font-weight: 700;
+    }
+
     @media(max-width:900px){
       .timeline{gap:8px}
       .time-chip{padding:8px 10px}
