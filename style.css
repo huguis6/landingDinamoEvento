@@ -165,7 +165,7 @@
     .section-split .leftImg{flex:1 1 45%; background-size:cover; background-position:center; min-height:320px; border-radius:8px;}
     .section-split .card{flex:1 1 55%; background:#fff; border-radius:8px; padding:20px 22px; box-shadow:0 6px 18px rgba(10,10,10,0.06);}
 
-    .objectives{display:flex; gap:22px; max-width:1000px; margin:0 auto;}
+    .objectives{display:flex; gap:22px; max-width:1300px; margin:0 auto;}
     .objective{flex:1 1 0; background:#fff; padding:18px; border-radius:8px; box-shadow:0 6px 18px rgba(10,10,10,0.05);}
     .objective h5{margin-top:0; color:#0b6b45}
 
@@ -179,6 +179,10 @@
       .section-hero{height:360px}
       .section-hero h2{font-size:28px}
       .objectives{flex-direction:column}
+
+      .titleDinamo img{
+        width: 50% !important;
+      }
     }
     /* Feature & animation helpers */
     .feature-cards .feature{position:relative; overflow:hidden}
