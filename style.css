@@ -914,10 +914,11 @@ body{
 .whatsapp-float span{font-weight:700; color:#fff}
 @media(max-width:600px){.whatsapp-float span{display:none}}
 
-/* Cookie banner */
-.cookie-banner{position:fixed; left:50%; transform:translateX(-50%); bottom:20px; background:#ffffff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.08); padding:10px 16px; z-index:9998; display:none; width:calc(100% - 48px); max-width:1100px; box-sizing:border-box}
+
+.cookie-banner{
+  position:fixed !important; left:50% !important; transform:translateX(-50%) !important; bottom:20px !important; background:#ffffff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.08); padding:10px 16px; z-index:9998; display:none; width:calc(100% - 48px); max-width:1100px; box-sizing:border-box}
 .cookie-inner{display:flex; align-items:center; gap:12px; justify-content:space-between}
-.cookie-banner.show{display:block}
+.cookie-banner.show{display:flex}
 
 
   
