@@ -188,6 +188,8 @@ https://forms.office.com/r/UDt8KECJbh" target="_blank" rel="noopener noreferrer"
             <div class="swiper-slide"><img src="./assets/jeluz.webp" alt=""></div>
             <div class="swiper-slide"><img src="./assets/cambre.png" alt=""></div>
             <div class="swiper-slide"><img src="./assets/unv-logo-VI-blue-011-300x153.png" alt=""></div>
+              <div class="swiper-slide"><img src="./assets/teclastar.webp" alt=""></div>
+
           </div>
         </div>
       </div>
@@ -207,6 +209,27 @@ https://forms.office.com/r/UDt8KECJbh" target="_blank" rel="noopener noreferrer"
 
             <a class="btn btn-outline-success" href="https://wa.me/541124538131" target="_blank">Consultá por WhatsApp</a>
         </div>
+      </div>
+    </section>
+
+    <section class="section-block venue-section" aria-label="Lugar del evento" style="padding-top:18px; padding-bottom:18px;">
+      <div style="max-width:1100px; margin:0 auto; display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+        <div class="venue-logo" style="flex:0 0 140px;">
+          <img src="./assets/LOGO_ENTRE_ALAMOS_Eentos.jpg" alt="Espacio Entre Alamos" style="width:140px; height:auto; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.06); display:block;">
+        </div>
+        <div style="flex:1 1 300px;">
+          <h3 style="margin:0; color:#0b6b45;">ESPACIO ENTRE ALAMOS</h3>
+          <p style="margin:6px 0 0 0; color:#333; font-weight:600;">RN40 Km 2222 — San Martín de los Andes, Neuquén</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Google Map full width before footer -->
+    <section class="map-full" aria-label="Mapa - Espacio Entre Alamos" style="margin-top:12px;">
+      <div style="max-width:1200px; margin:0 auto; padding:0 12px;">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3793.598265077747!2d-71.25367222316353!3d-40.12517276964429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x96110bf3167aef57%3A0xef0ac83b8d661c9f!2sEntre%20%C3%81lamos!5e1!3m2!1ses-419!2sus!4v1761065091402!5m2!1ses-419!2sus"
+          width="100%" height="400" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </section>
 
@@ -233,6 +256,26 @@ https://forms.office.com/r/UDt8KECJbh" target="_blank" rel="noopener noreferrer"
       </div>
     </footer>
 
+    <!-- WhatsApp floating button -->
+    <a href="https://wa.me/541124538131" target="_blank" class="whatsapp-float" aria-label="Contactar por WhatsApp" rel="noopener noreferrer">
+      <img src="./assets/whatsapp-white-icon.png" alt="WhatsApp" style="width:28px; height:28px;">
+      <span>Consultá por WhatsApp</span>
+    </a>
+
+    <!-- Cookie consent banner -->
+    <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite">
+      <div class="cookie-inner">
+        <div style="flex:1">
+          <strong>Usamos cookies</strong>
+          <div style="font-size:0.95rem; color:#222">Utilizamos cookies para mejorar la experiencia. Al continuar, aceptás nuestro uso de cookies.</div>
+        </div>
+        <div style="display:flex; gap:8px; margin-left:12px; align-items:center">
+          <button id="acceptCookies" class="btn btn-success">Aceptar</button>
+          <button id="dismissCookies" class="btn btn-outline-secondary">Cerrar</button>
+        </div>
+      </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>   
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -251,6 +294,51 @@ https://forms.office.com/r/UDt8KECJbh" target="_blank" rel="noopener noreferrer"
     },
     allowTouchMove: true
   });
+</script>
+
+<script>
+  // Cookie banner: show if not accepted
+  (function(){
+    const cookieKey = 'dinamo_cookie_consented_v1';
+    const banner = document.getElementById('cookieBanner');
+    const acceptBtn = document.getElementById('acceptCookies');
+    const dismissBtn = document.getElementById('dismissCookies');
+    const whatsappEl = document.querySelector('.whatsapp-float');
+    function updateWhatsAppOffset(){
+      // compute banner height + margin
+      const base = 22; // default bottom  
+      if(!banner || !whatsappEl) return document.documentElement.style.setProperty('--whatsapp-bottom', base + 'px');
+      const isShown = banner.classList.contains('show');
+      if(isShown){
+        const rect = banner.getBoundingClientRect();
+        const extra = 12;
+        const val = Math.max(base, Math.ceil(rect.height + extra));
+        document.documentElement.style.setProperty('--whatsapp-bottom', val + 'px');
+      }else{
+        document.documentElement.style.setProperty('--whatsapp-bottom', base + 'px');
+      }
+    }
+
+    try{
+      const ok = localStorage.getItem(cookieKey);
+      if(!ok) banner.classList.add('show');
+    }catch(e){ banner.classList.add('show'); }
+
+    // update offset when banner shown initially
+    setTimeout(updateWhatsAppOffset,120);
+
+    if(acceptBtn) acceptBtn.addEventListener('click', ()=>{
+      try{ localStorage.setItem(cookieKey, '1'); }catch(e){}
+      banner.classList.remove('show');
+      updateWhatsAppOffset();
+    });
+    if(dismissBtn) dismissBtn.addEventListener('click', ()=>{ banner.classList.remove('show'); updateWhatsAppOffset(); });
+
+    // on show/hide transitions or resize, recalc
+    window.addEventListener('resize', updateWhatsAppOffset);
+    const obs = new MutationObserver(updateWhatsAppOffset);
+    obs.observe(banner, { attributes: true, attributeFilter: ['class'] });
+  })();
 </script>
 
 <script>
